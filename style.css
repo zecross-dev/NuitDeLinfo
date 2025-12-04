@@ -9,10 +9,10 @@
     --primary-color: #3b82f6;
     --secondary-color: #8b5cf6;
     --accent-color: #10b981;
-    --dark-color: #1e293b;
-    --light-color: #f1f5f9;
-    --white: #ffffff;
-    --text-color: #334155;
+    --dark-color: #1f427e;
+    --light-color: #1f1f1f;
+    --white: #000000;
+    --text-color: #2f4462;
     --border-radius: 12px;
     --transition: all 0.3s ease;
     --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.1);
@@ -96,7 +96,7 @@ p {
     top: 0;
     left: 0;
     width: 100%;
-    background: rgba(255, 255, 255, 0.95);
+    background: rgba(17, 17, 17, 0.95);
     backdrop-filter: blur(10px);
     box-shadow: var(--shadow-sm);
     z-index: 1000;
@@ -104,7 +104,7 @@ p {
 }
 
 .navbar.scrolled {
-    background: rgba(255, 255, 255, 0.98);
+    background: rgba(49, 49, 49, 0.98);
     box-shadow: var(--shadow-md);
 }
 
@@ -200,7 +200,7 @@ p {
     min-height: 100vh;
     display: flex;
     align-items: center;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #000000 0%, #764ba2 100%);
     position: relative;
     overflow: hidden;
     padding-top: 80px;
@@ -427,7 +427,7 @@ p {
 .form-group textarea {
     width: 100%;
     padding: 1rem;
-    border: 2px solid #e2e8f0;
+    border: 2px solid #000000;
     border-radius: 8px;
     font-size: 1rem;
     font-family: inherit;
@@ -476,13 +476,13 @@ p {
 }
 
 #formMessage.success {
-    background: #d1fae5;
+    background: #000000;
     color: #065f46;
     display: block;
 }
 
 #formMessage.error {
-    background: #fee2e2;
+    background: #000000;
     color: #991b1b;
     display: block;
 }
