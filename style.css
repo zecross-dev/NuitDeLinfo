@@ -148,7 +148,7 @@ p {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 1.2rem 2rem;
+    padding: 0.2rem 0.5rem;
 }
 
 .logo {
@@ -229,6 +229,53 @@ p {
 
 .menu-toggle.active span:nth-child(3) {
     transform: rotate(-45deg) translate(7px, -7px);
+}
+/*======game container=====*/
+
+
+.score-board {
+    min-height: 40vh;
+    display: flex;
+    align-items:end;
+    background: linear-gradient(135deg, #667eea 0%, #2f2e30 100%);
+    position: relative;
+    overflow: hidden;
+    padding-top: 80px;
+}
+
+.score-board::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600"><path d="M0,100 Q300,200 600,100 T1200,100 L1200,600 L0,600 Z" fill="rgba(255,255,255,0.05)"/></svg>');
+    background-size: cover;
+}
+
+/*======container=====*/
+
+
+.container {
+    min-height: 40vh;
+    display: flex;
+    align-items:end;
+    background: linear-gradient(135deg, #1f2023 0%, #764ba2 100%);
+    position: relative;
+    overflow: hidden;
+    padding-top: 80px;
+}
+
+.score-board::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600"><path d="M0,100 Q300,200 600,100 T1200,100 L1200,600 L0,600 Z" fill="rgba(255,255,255,0.05)"/></svg>');
+    background-size: cover;
 }
 
 /* ===== HERO SECTION ===== */
