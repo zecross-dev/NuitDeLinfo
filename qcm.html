@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Serious Game - Nirdious</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="quiz-container">
+            <div class="quiz-header">
+                <h1>Quiz : Culture Numérique</h1>
+                <p>Testez vos connaissances sur le monde du numérique</p>
+            </div>
+
+            <div id="quizSection">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressBar"></div>
+                </div>
+
+                <div class="question-counter" id="questionCounter">
+                    Question 1 sur 10
+                </div>
+
+                <div id="questionsContainer"></div>
+
+                <div class="feedback" id="feedback"></div>
+
+                <div class="btn-container">
+                    <button class="btn btn-secondary" id="prevBtn" onclick="previousQuestion()" disabled>
+                        ← Précédent
+                    </button>
+                    <button class="btn btn-primary" id="nextBtn" onclick="nextQuestion()" disabled>
+                        Suivant →
+                    </button>
+                    <button class="btn btn-primary" id="submitBtn" onclick="submitQuiz()" style="display:none;">
+                        Voir les résultats
+                    </button>
+                </div>
+            </div>
+
+            <div class="results" id="results">
+                <h2>🎉 Quiz Terminé !</h2>
+                <div class="score-display" id="scoreDisplay">0/10</div>
+                <div class="score-message" id="scoreMessage"></div>
+
+                <div class="stats">
+                    <div class="stat-card">
+                        <div class="stat-value" id="correctCount">0</div>
+                        <div class="stat-label">Bonnes réponses</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="incorrectCount">0</div>
+                        <div class="stat-label">Mauvaises réponses</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="percentageScore">0%</div>
+                        <div class="stat-label">Score</div>
+                    </div>
+                </div>
+
+                <div class="btn-container">
+                    <button class="btn btn-primary" onclick="restartQuiz()">
+                        🔄 Recommencer
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const questions = [
+            {
+                question: "Qu'est-ce que le HTML ?",
+                answers: [
+                    "Un langage de programmation",
+                    "Un langage de balisage pour structurer les pages web",
+                    "Un système d'exploitation",
+                    "Un logiciel de traitement de texte"
+                ],
+                correct: 1,
+                explanation: "HTML (HyperText Markup Language) est un langage de balisage utilisé pour structurer le contenu des pages web."
+            },
+            {
+                question: "Que signifie CSS ?",
+                answers: [
+                    "Computer Style Sheets",
+                    "Creative Style System",
+                    "Cascading Style Sheets",
+                    "Central System Style"
+                ],
+                correct: 2,
+                explanation: "CSS (Cascading Style Sheets) est utilisé pour styliser et mettre en forme les pages web."
+            },
+            {
+                question: "Quel est le rôle de JavaScript ?",
+                answers: [
+                    "Gérer les bases de données",
+                    "Rendre les pages web interactives",
+                    "Créer des graphiques 3D uniquement",
+                    "Remplacer HTML"
+                ],
+                correct: 1,
+                explanation: "JavaScript permet d'ajouter de l'interactivité et du dynamisme aux pages web."
+            },
+            {
+                question: "Qu'est-ce qu'une API ?",
+                answers: [
+                    "Un type de virus informatique",
+                    "Une interface de programmation d'application",
+                    "Un langage de programmation",
+                    "Un système d'exploitation"
+                ],
+                correct: 1,
+                explanation: "Une API (Application Programming Interface) permet à différents logiciels de communiquer entre eux."
+            },
+            {
+                question: "Que signifie 'responsive design' ?",
+                answers: [
+                    "Un design qui répond rapidement",
+                    "Un design qui s'adapte aux différentes tailles d'écran",
+                    "Un design avec des animations",
+                    "Un design coloré"
+                ],
+                correct: 1,
+                explanation: "Le responsive design permet aux sites web de s'adapter automatiquement à toutes les tailles d'écran."
+            },
+            {
+                question: "Qu'est-ce que le Cloud Computing ?",
+                answers: [
+                    "La météorologie informatique",
+                    "Le stockage et l'accès aux données via Internet",
+                    "Un type de réseau local",
+                    "Un logiciel de dessin"
+                ],
+                correct: 1,
+                explanation: "Le Cloud Computing permet d'accéder à des ressources informatiques via Internet plutôt que localement."
+            },
+            {
+                question: "Qu'est-ce qu'un algorithme ?",
+                answers: [
+                    "Un langage de programmation",
+                    "Une suite d'instructions pour résoudre un problème",
+                    "Un type de virus",
+                    "Un composant matériel"
+                ],
+                correct: 1,
+                explanation: "Un algorithme est une séquence d'instructions logiques permettant de résoudre un problème ou d'effectuer une tâche."
+            },
+            {
+                question: "Que signifie 'Open Source' ?",
+                answers: [
+                    "Logiciel gratuit",
+                    "Logiciel dont le code source est accessible et modifiable",
+                    "Logiciel sans bug",
+                    "Logiciel pour débutants"
+                ],
+                correct: 1,
+                explanation: "Un logiciel Open Source a son code source accessible publiquement, permettant à chacun de le consulter et le modifier."
+            },
+            {
+                question: "Qu'est-ce que le Big Data ?",
+                answers: [
+                    "De gros fichiers",
+                    "L'analyse de très grandes quantités de données",
+                    "Un logiciel de stockage",
+                    "Un type d'ordinateur"
+                ],
+                correct: 1,
+                explanation: "Le Big Data concerne le traitement et l'analyse de volumes massifs de données pour en extraire des informations utiles."
+            },
+            {
+                question: "Qu'est-ce que l'Intelligence Artificielle (IA) ?",
+                answers: [
+                    "Un robot humanoïde",
+                    "La capacité d'une machine à imiter l'intelligence humaine",
+                    "Un super ordinateur",
+                    "Un jeu vidéo"
+                ],
+                correct: 1,
+                explanation: "L'IA permet aux machines d'effectuer des tâches qui nécessitent normalement l'intelligence humaine."
+            }
+        ];
+
+        let currentQuestion = 0;
+        let userAnswers = [];
+        let score = 0;
+
+        function initQuiz() {
+            renderQuestion();
+            updateProgress();
+        }
+
+        function renderQuestion() {
+            const container = document.getElementById('questionsContainer');
+            container.innerHTML = '';
+
+            questions.forEach((q, index) => {
+                const questionCard = document.createElement('div');
+                questionCard.className = `question-card ${index === currentQuestion ? 'active' : ''}`;
+                questionCard.innerHTML = `
+                    <div class="question">${index + 1}. ${q.question}</div>
+                    <div class="answers">
+                        ${q.answers.map((answer, i) => `
+                            <button class="answer-btn" onclick="selectAnswer(${index}, ${i})">
+                                ${answer}
+                            </button>
+                        `).join('')}
+                    </div>
+                `;
+                container.appendChild(questionCard);
+            });
+
+            updateButtons();
+            updateQuestionCounter();
+        }
+
+        function selectAnswer(questionIndex, answerIndex) {
+            if (userAnswers[questionIndex] !== undefined) return;
+
+            userAnswers[questionIndex] = answerIndex;
+            const buttons = document.querySelectorAll('.question-card.active .answer-btn');
+            
+            buttons.forEach((btn, i) => {
+                btn.disabled = true;
+                if (i === answerIndex) {
+                    if (answerIndex === questions[questionIndex].correct) {
+                        btn.classList.add('correct');
+                        showFeedback(true, questions[questionIndex].explanation);
+                        score++;
+                    } else {
+                        btn.classList.add('incorrect');
+                        buttons[questions[questionIndex].correct].classList.add('correct');
+                        showFeedback(false, questions[questionIndex].explanation);
+                    }
+                }
+            });
+
+            updateButtons();
+        }
+
+        function showFeedback(correct, explanation) {
+            const feedback = document.getElementById('feedback');
+            feedback.className = `feedback show ${correct ? 'correct' : 'incorrect'}`;
+            feedback.innerHTML = `
+                <strong>${correct ? '✅ Bonne réponse !' : '❌ Mauvaise réponse'}</strong><br>
+                ${explanation}
+            `;
+        }
+
+        function nextQuestion() {
+            if (currentQuestion < questions.length - 1) {
+                document.getElementById('feedback').classList.remove('show');
+                currentQuestion++;
+                renderQuestion();
+                updateProgress();
+            }
+        }
+
+        function previousQuestion() {
+            if (currentQuestion > 0) {
+                document.getElementById('feedback').classList.remove('show');
+                currentQuestion--;
+                renderQuestion();
+                updateProgress();
+            }
+        }
+
+        function updateButtons() {
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            const submitBtn = document.getElementById('submitBtn');
+
+            prevBtn.disabled = currentQuestion === 0;
+            
+            if (currentQuestion === questions.length - 1) {
+                nextBtn.style.display = 'none';
+                submitBtn.style.display = userAnswers[currentQuestion] !== undefined ? 'inline-block' : 'none';
+            } else {
+                nextBtn.style.display = 'inline-block';
+                nextBtn.disabled = userAnswers[currentQuestion] === undefined;
+                submitBtn.style.display = 'none';
+            }
+        }
+
+        function updateProgress() {
+            const progress = ((currentQuestion + 1) / questions.length) * 100;
+            document.getElementById('progressBar').style.width = progress + '%';
+        }
+
+        function updateQuestionCounter() {
+            document.getElementById('questionCounter').textContent = 
+                `Question ${currentQuestion + 1} sur ${questions.length}`;
+        }
+
+        function submitQuiz() {
+            document.getElementById('quizSection').style.display = 'none';
+            
+            const percentage = Math.round((score / questions.length) * 100);
+            const correctCount = score;
+            const incorrectCount = questions.length - score;
+
+            document.getElementById('scoreDisplay').textContent = `${score}/${questions.length}`;
+            document.getElementById('correctCount').textContent = correctCount;
+            document.getElementById('incorrectCount').textContent = incorrectCount;
+            document.getElementById('percentageScore').textContent = percentage + '%';
+
+            let message = '';
+            if (percentage >= 90) {
+                message = '🌟 Excellent ! Vous maîtrisez parfaitement le sujet !';
+            } else if (percentage >= 70) {
+                message = '👏 Très bien ! Vous avez de bonnes connaissances !';
+            } else if (percentage >= 50) {
+                message = '👍 Pas mal ! Continuez à apprendre !';
+            } else {
+                message = '💪 Ne vous découragez pas ! Recommencez pour progresser !';
+            }
+            document.getElementById('scoreMessage').textContent = message;
+
+            document.getElementById('results').classList.add('show');
+        }
+
+        function restartQuiz() {
+            currentQuestion = 0;
+            userAnswers = [];
+            score = 0;
+            document.getElementById('quizSection').style.display = 'block';
+            document.getElementById('results').classList.remove('show');
+            document.getElementById('feedback').classList.remove('show');
+            initQuiz();
+        }
+
+        // Initialisation
+        initQuiz();
+    </script>
+</body>
+</html>
