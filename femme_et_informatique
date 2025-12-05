@@ -1,0 +1,31 @@
+<?php?>
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Les femmes et l'informatique</title>
+
+</head>
+<body>
+    <div class="container">
+        <h1>Les femmes et l'informatique</h1>
+
+        <?php
+        echo "<p>Nous sommes le groupe Baguette Coders, tous à l’IUT de la Rochelle, en BUT Informatique 1e année.
+Dans le cadre du défi « Femmes et Informatiques », nous avons choisi de rendre un flyer / affiche simple, montrant Ada Lovelace, pionnière de l’informatique et première programmeuse de l’histoire, et des innovations techniologiques qui n’auraient jamais pu voir le jour sans son travail.
+Et pour la vidéo, nous avons choisi une introduction par Ada Lovelace, suivie d’un interview avec une participante de la Nuit de l’Informatique, afin d’avoir un avis réel, concerné et honnête sûr la situation actuelle des femmes et d’une partie informartive sûr la place actuelle et future des femmes dans le monde du numérique.</p>";
+        ?>
+
+        <!-- Image -->
+        <h2>Flyer</h2>
+        <img src="Affiche_femme_et_info.png" alt="Une belle image">
+
+        <!-- Vidéo -->
+        <h2>Video d'information et interview</h2>
+        <video controls>
+        <source src="./Femmes_informatique.mp4" type="video/mp4">
+        </video>
+    </div>
+</body>
+</html>
