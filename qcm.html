@@ -9,7 +9,7 @@
 <body>
     <nav class="navbar">
         <div class="container">
-            <div class="logo"><img src="assets/logo nirdious.png" alt="logo nirdious" width="500px"></div>
+            <div class="logo"><img src="assets/logo nirdious.png" alt="logo nirdious" width="250px"></div>
             <ul class="nav-links">
                 <li><a href="snake.html">Snake</a></li>
                 <li><a href="#services">Femmes dans le numérique</a></li>
@@ -17,14 +17,15 @@
                 <li><a href="#contact">FAQ et Support</a></li>
                 <li><a href="qcm.html">Nirdious Game</a></li>
             </ul>
-            <button class="menu-toggle" id="menuToggle">
+            <button class="menu-toggle" id="menuToggle" aria-label="Ouvrir le menu">
                 <span></span>
                 <span></span>
                 <span></span>
             </button>
         </div>
     </nav>
-    <div class="container">
+    
+    <div class="score-board">
         <div class="quiz-container">
             <div class="quiz-header">
                 <h1>Quiz : Culture Numérique</h1>
@@ -48,7 +49,7 @@
                     <button class="btn btn-secondary" id="prevBtn" onclick="previousQuestion()" disabled>
                         ← Précédent
                     </button>
-                    <button class="btn btn-primary" id="nextBtn" onclick="nextQuestion()" disabled>
+                    <button class="btn btn-primary" id="nextBtn" onclick="nextQuestions()" disabled>
                         Suivant →
                     </button>
                     <button class="btn btn-primary" id="submitBtn" onclick="submitQuiz()" style="display:none;">
@@ -87,269 +88,203 @@
     </div>
 
     <script>
-        const questions = [
-            {
-                question: "Qu'est-ce que le HTML ?",
-                answers: [
-                    "Un langage de programmation",
-                    "Un langage de balisage pour structurer les pages web",
-                    "Un système d'exploitation",
-                    "Un logiciel de traitement de texte"
-                ],
-                correct: 1,
-                explanation: "HTML (HyperText Markup Language) est un langage de balisage utilisé pour structurer le contenu des pages web."
-            },
-            {
-                question: "Que signifie CSS ?",
-                answers: [
-                    "Computer Style Sheets",
-                    "Creative Style System",
-                    "Cascading Style Sheets",
-                    "Central System Style"
-                ],
-                correct: 2,
-                explanation: "CSS (Cascading Style Sheets) est utilisé pour styliser et mettre en forme les pages web."
-            },
-            {
-                question: "Quel est le rôle de JavaScript ?",
-                answers: [
-                    "Gérer les bases de données",
-                    "Rendre les pages web interactives",
-                    "Créer des graphiques 3D uniquement",
-                    "Remplacer HTML"
-                ],
-                correct: 1,
-                explanation: "JavaScript permet d'ajouter de l'interactivité et du dynamisme aux pages web."
-            },
-            {
-                question: "Qu'est-ce qu'une API ?",
-                answers: [
-                    "Un type de virus informatique",
-                    "Une interface de programmation d'application",
-                    "Un langage de programmation",
-                    "Un système d'exploitation"
-                ],
-                correct: 1,
-                explanation: "Une API (Application Programming Interface) permet à différents logiciels de communiquer entre eux."
-            },
-            {
-                question: "Que signifie 'responsive design' ?",
-                answers: [
-                    "Un design qui répond rapidement",
-                    "Un design qui s'adapte aux différentes tailles d'écran",
-                    "Un design avec des animations",
-                    "Un design coloré"
-                ],
-                correct: 1,
-                explanation: "Le responsive design permet aux sites web de s'adapter automatiquement à toutes les tailles d'écran."
-            },
-            {
-                question: "Qu'est-ce que le Cloud Computing ?",
-                answers: [
-                    "La météorologie informatique",
-                    "Le stockage et l'accès aux données via Internet",
-                    "Un type de réseau local",
-                    "Un logiciel de dessin"
-                ],
-                correct: 1,
-                explanation: "Le Cloud Computing permet d'accéder à des ressources informatiques via Internet plutôt que localement."
-            },
-            {
-                question: "Qu'est-ce qu'un algorithme ?",
-                answers: [
-                    "Un langage de programmation",
-                    "Une suite d'instructions pour résoudre un problème",
-                    "Un type de virus",
-                    "Un composant matériel"
-                ],
-                correct: 1,
-                explanation: "Un algorithme est une séquence d'instructions logiques permettant de résoudre un problème ou d'effectuer une tâche."
-            },
-            {
-                question: "Que signifie 'Open Source' ?",
-                answers: [
-                    "Logiciel gratuit",
-                    "Logiciel dont le code source est accessible et modifiable",
-                    "Logiciel sans bug",
-                    "Logiciel pour débutants"
-                ],
-                correct: 1,
-                explanation: "Un logiciel Open Source a son code source accessible publiquement, permettant à chacun de le consulter et le modifier."
-            },
-            {
-                question: "Qu'est-ce que le Big Data ?",
-                answers: [
-                    "De gros fichiers",
-                    "L'analyse de très grandes quantités de données",
-                    "Un logiciel de stockage",
-                    "Un type d'ordinateur"
-                ],
-                correct: 1,
-                explanation: "Le Big Data concerne le traitement et l'analyse de volumes massifs de données pour en extraire des informations utiles."
-            },
-            {
-                question: "Qu'est-ce que l'Intelligence Artificielle (IA) ?",
-                answers: [
-                    "Un robot humanoïde",
-                    "La capacité d'une machine à imiter l'intelligence humaine",
-                    "Un super ordinateur",
-                    "Un jeu vidéo"
-                ],
-                correct: 1,
-                explanation: "L'IA permet aux machines d'effectuer des tâches qui nécessitent normalement l'intelligence humaine."
+    // --- 1. VOS DONNÉES (ATTENTION AUX VIRGULES !) ---
+    const questions = [
+        {
+            question: "Quel système d’exploitation est open-source et gratuit ?",
+            answers: ["A) Windows", "B) Linux NIRD", "C) PrimTux", "D) MacOS","E) Réponse B et C"],
+            correct: 4, 
+            explanation: "Linux NIRD est un système d’exploitation open-source et gratuit."
+        },
+        {
+            question: "Que veut dire NIRD ?",
+            answers: ["Numérique Inclusif Responsable Durable", "Nous Ignorons les Réseaux Durables", "Une abréviation de Nature Bird"],
+            correct: 0,
+            explanation: "NIRD signifie « Numérique Inclusif Responsable Durable »."
+        },
+        {
+            question: "Combien font 595 + 453 ?",
+            answers: ["948", "1048", "957"],
+            correct: 1,
+            explanation: ""
+        },
+        {
+            question: "Que peut t’on trouver/faire dans un éditeur de texte ?",
+            answers: ["Mettre le texte en italique","Mettre le texte en gras","Mettre le texte en mosaïque","Mettre le texte en république","Réponse A et B","Réponse C et D"],
+            correct: 4,
+            explanation: ""
+        }
+    ];
+
+    // --- 2. LE MOTEUR DU JEU (NE PAS TOUCHER) ---
+    let currentQuestion = 0;
+    let userAnswers = []; // Stocke les réponses du joueur
+    let score = 0;
+
+    // Lance le jeu au chargement
+    document.addEventListener('DOMContentLoaded', initQuiz);
+
+    function initQuiz() {
+        renderQuestion();
+        updateProgress();
+    }
+
+    function renderQuestion() {
+        const container = document.getElementById('questionsContainer');
+        const q = questions[currentQuestion];
+        
+        // Sécurité : si la question n'existe pas, on arrête
+        if (!q) return;
+
+        container.innerHTML = `
+            <div class="question-card active">
+                <div class="question">${currentQuestion + 1}. ${q.question}</div>
+                <div class="answers">
+                    ${q.answers.map((answer, i) => `
+                        <button class="answer-btn" onclick="selectAnswer(${i})">
+                            ${answer}
+                        </button>
+                    `).join('')}
+                </div>
+            </div>
+        `;
+
+        // Cache le feedback précédent
+        document.getElementById('feedback').classList.remove('show');
+        updateButtons();
+        updateQuestionCounter();
+    }
+
+    function selectAnswer(answerIndex) {
+        // Si on a déjà répondu à cette question, on ne fait rien
+        if (userAnswers[currentQuestion] !== undefined) return;
+
+        // Enregistre la réponse
+        userAnswers[currentQuestion] = answerIndex;
+        
+        const q = questions[currentQuestion];
+        const buttons = document.querySelectorAll('.answer-btn');
+        
+        // Gestion compatible : soit un chiffre (ex: 1), soit une liste (ex: [0, 2])
+        const correctData = q.correct;
+        const isCorrect = Array.isArray(correctData) 
+            ? correctData.includes(answerIndex) 
+            : correctData === answerIndex;
+
+        // Mise à jour visuelle des boutons
+        buttons.forEach((btn, i) => {
+            btn.disabled = true; // Désactive le clic
+            if (i === answerIndex) {
+                if (isCorrect) {
+                    btn.classList.add('correct');
+                    score++;
+                    showFeedback(true, q.explanation);
+                } else {
+                    btn.classList.add('incorrect');
+                    showFeedback(false, q.explanation);
+                    
+                    // Montre la bonne réponse si on s'est trompé
+                    const mainCorrect = Array.isArray(correctData) ? correctData[0] : correctData;
+                    buttons[mainCorrect].classList.add('correct');
+                }
             }
-        ];
+        });
 
-        let currentQuestion = 0;
-        let userAnswers = [];
-        let score = 0;
+        // IMPORTANT : C'est ici qu'on débloque le bouton Suivant !
+        updateButtons();
+    }
 
-        function initQuiz() {
+    function showFeedback(correct, explanation) {
+        const feedback = document.getElementById('feedback');
+        feedback.className = `feedback show ${correct ? 'correct' : 'incorrect'}`;
+        feedback.innerHTML = `
+            <strong>${correct ? '✅ Bonne réponse !' : '❌ Mauvaise réponse'}</strong><br>
+            ${explanation || ''}
+        `;
+    }
+
+    function nextQuestion() {
+    // Est-ce qu'on est arrivé à la fin ?
+    if (currentQuestion < questions.length - 1) {
+        currentQuestion++; // On ajoute +1 au compteur
+        renderQuestion();  // On affiche la nouvelle question
+        updateProgress();  // On bouge la barre de progression
+    }
+}
+
+    function previousQuestion() {
+        if (currentQuestion > 0) {
+            currentQuestion--;
             renderQuestion();
             updateProgress();
-        }
-
-        function renderQuestion() {
-            const container = document.getElementById('questionsContainer');
-            container.innerHTML = '';
-
-            questions.forEach((q, index) => {
-                const questionCard = document.createElement('div');
-                questionCard.className = `question-card ${index === currentQuestion ? 'active' : ''}`;
-                questionCard.innerHTML = `
-                    <div class="question">${index + 1}. ${q.question}</div>
-                    <div class="answers">
-                        ${q.answers.map((answer, i) => `
-                            <button class="answer-btn" onclick="selectAnswer(${index}, ${i})">
-                                ${answer}
-                            </button>
-                        `).join('')}
-                    </div>
-                `;
-                container.appendChild(questionCard);
-            });
-
-            updateButtons();
-            updateQuestionCounter();
-        }
-
-        function selectAnswer(questionIndex, answerIndex) {
-            if (userAnswers[questionIndex] !== undefined) return;
-
-            userAnswers[questionIndex] = answerIndex;
-            const buttons = document.querySelectorAll('.question-card.active .answer-btn');
             
-            buttons.forEach((btn, i) => {
-                btn.disabled = true;
-                if (i === answerIndex) {
-                    if (answerIndex === questions[questionIndex].correct) {
-                        btn.classList.add('correct');
-                        showFeedback(true, questions[questionIndex].explanation);
-                        score++;
-                    } else {
-                        btn.classList.add('incorrect');
-                        buttons[questions[questionIndex].correct].classList.add('correct');
-                        showFeedback(false, questions[questionIndex].explanation);
-                    }
-                }
-            });
-
-            updateButtons();
+            // Si on revient en arrière sur une question déjà faite, on remet l'état visuel
+            // (Optionnel : pour faire simple, on réinitialise l'affichage ici)
         }
+    }
 
-        function showFeedback(correct, explanation) {
-            const feedback = document.getElementById('feedback');
-            feedback.className = `feedback show ${correct ? 'correct' : 'incorrect'}`;
-            feedback.innerHTML = `
-                <strong>${correct ? '✅ Bonne réponse !' : '❌ Mauvaise réponse'}</strong><br>
-                ${explanation}
-            `;
-        }
+    function updateButtons() {
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const submitBtn = document.getElementById('submitBtn');
 
-        function nextQuestion() {
-            if (currentQuestion < questions.length - 1) {
-                document.getElementById('feedback').classList.remove('show');
-                currentQuestion++;
-                renderQuestion();
-                updateProgress();
+        // Bouton Précédent
+        if(prevBtn) prevBtn.disabled = currentQuestion === 0;
+        
+        // Vérifie si l'utilisateur a répondu à la question actuelle
+        const hasAnswered = userAnswers[currentQuestion] !== undefined;
+
+        // Bouton Suivant / Résultats
+        if (currentQuestion === questions.length - 1) {
+            if(nextBtn) nextBtn.style.display = 'none';
+            if(submitBtn) {
+                submitBtn.style.display = 'inline-block';
+                // On active le bouton final seulement si on a répondu
+                submitBtn.disabled = !hasAnswered; 
             }
-        }
-
-        function previousQuestion() {
-            if (currentQuestion > 0) {
-                document.getElementById('feedback').classList.remove('show');
-                currentQuestion--;
-                renderQuestion();
-                updateProgress();
-            }
-        }
-
-        function updateButtons() {
-            const prevBtn = document.getElementById('prevBtn');
-            const nextBtn = document.getElementById('nextBtn');
-            const submitBtn = document.getElementById('submitBtn');
-
-            prevBtn.disabled = currentQuestion === 0;
-            
-            if (currentQuestion === questions.length - 1) {
-                nextBtn.style.display = 'none';
-                submitBtn.style.display = userAnswers[currentQuestion] !== undefined ? 'inline-block' : 'none';
-            } else {
+        } else {
+            if(nextBtn) {
                 nextBtn.style.display = 'inline-block';
-                nextBtn.disabled = userAnswers[currentQuestion] === undefined;
-                submitBtn.style.display = 'none';
+                // LE FIX EST ICI : On désactive si pas répondu, on active si répondu
+                nextBtn.disabled = !hasAnswered; 
             }
+            if(submitBtn) submitBtn.style.display = 'none';
         }
+    }
 
-        function updateProgress() {
-            const progress = ((currentQuestion + 1) / questions.length) * 100;
-            document.getElementById('progressBar').style.width = progress + '%';
-        }
+    function updateProgress() {
+        const progress = ((currentQuestion + 1) / questions.length) * 100;
+        const bar = document.getElementById('progressBar');
+        if(bar) bar.style.width = progress + '%';
+    }
 
-        function updateQuestionCounter() {
-            document.getElementById('questionCounter').textContent = 
-                `Question ${currentQuestion + 1} sur ${questions.length}`;
-        }
+    function updateQuestionCounter() {
+        const counter = document.getElementById('questionCounter');
+        if(counter) counter.textContent = `Question ${currentQuestion + 1} sur ${questions.length}`;
+    }
 
-        function submitQuiz() {
-            document.getElementById('quizSection').style.display = 'none';
-            
-            const percentage = Math.round((score / questions.length) * 100);
-            const correctCount = score;
-            const incorrectCount = questions.length - score;
+    function submitQuiz() {
+        document.getElementById('quizSection').style.display = 'none';
+        document.getElementById('results').classList.add('show');
+        
+        const percentage = Math.round((score / questions.length) * 100);
+        document.getElementById('scoreDisplay').textContent = `${score}/${questions.length}`;
+        document.getElementById('correctCount').textContent = score;
+        document.getElementById('incorrectCount').textContent = questions.length - score;
+        document.getElementById('percentageScore').textContent = percentage + '%';
+        
+        let message = percentage >= 50 ? "Bravo !" : "Courage, recommencez !";
+        document.getElementById('scoreMessage').textContent = message;
+    }
 
-            document.getElementById('scoreDisplay').textContent = `${score}/${questions.length}`;
-            document.getElementById('correctCount').textContent = correctCount;
-            document.getElementById('incorrectCount').textContent = incorrectCount;
-            document.getElementById('percentageScore').textContent = percentage + '%';
-
-            let message = '';
-            if (percentage >= 90) {
-                message = '🌟 Excellent ! Vous maîtrisez parfaitement le sujet !';
-            } else if (percentage >= 70) {
-                message = '👏 Très bien ! Vous avez de bonnes connaissances !';
-            } else if (percentage >= 50) {
-                message = '👍 Pas mal ! Continuez à apprendre !';
-            } else {
-                message = '💪 Ne vous découragez pas ! Recommencez pour progresser !';
-            }
-            document.getElementById('scoreMessage').textContent = message;
-
-            document.getElementById('results').classList.add('show');
-        }
-
-        function restartQuiz() {
-            currentQuestion = 0;
-            userAnswers = [];
-            score = 0;
-            document.getElementById('quizSection').style.display = 'block';
-            document.getElementById('results').classList.remove('show');
-            document.getElementById('feedback').classList.remove('show');
-            initQuiz();
-        }
-
-        // Initialisation
+    function restartQuiz() {
+        currentQuestion = 0;
+        userAnswers = [];
+        score = 0;
+        document.getElementById('quizSection').style.display = 'block';
+        document.getElementById('results').classList.remove('show');
         initQuiz();
-    </script>
+    }
+</script>
 </body>
 </html>
