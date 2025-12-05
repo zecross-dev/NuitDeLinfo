@@ -215,7 +215,7 @@ p {
 }
 
 .menu-toggle span {
-    width: 28px;
+    width: 2px;
     height: 3px;
     background: var(--dark-color);
     border-radius: 3px;
@@ -653,7 +653,7 @@ p {
     display: flex;
     justify-content: space-around;
     margin: 20px 0;
-    padding: 15px;
+    padding: 10px;
     background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
     border-radius: var(--border-radius);
     color: white;
