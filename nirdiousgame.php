@@ -28,9 +28,10 @@ $titre = "Nirdious Game";
                     </div>
                     <div class="window">
                         <?php require_once (__DIR__ . '/calculatrice.php'); ?>
-                    </div>
-                    <div class="window2">
 
+                    </div>
+                    <div class="window">
+                        <?php require_once (__DIR__ . '/editeur.php'); ?>
                     </div>
                 </div>
                 <div class="footGame">

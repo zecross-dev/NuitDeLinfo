@@ -4,7 +4,7 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <title>Calculatrice draggable</title>
-        <link rel="stylesheet" href="calculatrice.css">
+        <link rel="stylesheet" href="assets/css/calculatrice.css">
     </head>
     <body>
 
@@ -54,6 +54,6 @@
             <button class="key equal" data-action="equal">=</button>
         </div>
     </div>
-    <script src="calculatrice.js"></script>
+    <script src="assets/scripts/calculatrice.js"></script>
     </body>
 </html>

@@ -10,7 +10,7 @@
     </head>
     <body>
     <header class="header">
-        <img class="logo-header" src="logo-nirdious.png">
+        <img class="logo-header" src="assets/image/logo-nirdious.png">
         <h1 class="title"><?php echo($titre);?></h1>
         <div class="menu-burger">
             <ul>
