@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Snake Game - Nirdious</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="script" href="script.js">
 </head>
 <body>
     
@@ -80,13 +81,18 @@
         let dx = 0;
         let dy = 0;
         let score = 0;
-        let highScore = localStorage.getItem('snakeHighScore') || 0;
+        let highScore = 0;
         let gameLoop;
         let gameSpeed = 100;
         let isPlaying = false;
         let isPaused = false;
 
-        highScoreEl.textContent = highScore;
+        // Charger le high score depuis la mémoire
+        const savedHighScore = localStorage.getItem('snakeHighScore');
+        if (savedHighScore) {
+            highScore = parseInt(savedHighScore);
+            highScoreEl.textContent = highScore;
+        }
 
         // Difficulté
         document.querySelectorAll('.difficulty-btn').forEach(btn => {
@@ -99,13 +105,18 @@
             });
         });
 
-        // Contrôles
+        // Contrôles - EMPÊCHE LE SCROLL DE LA PAGE
         document.addEventListener('keydown', changeDirection);
 
         function changeDirection(e) {
             const key = e.key;
             
-            if ((key === 'ArrowLeft' || key === 'q' || key === 'Z') && dx === 0) {
+            // Empêcher le scroll de la page avec les flèches
+            if (['ArrowLeft', 'ArrowUp', 'ArrowRight', 'ArrowDown', ' '].includes(key)) {
+                e.preventDefault();
+            }
+            
+            if ((key === 'ArrowLeft' || key === 'q' || key === 'Q') && dx === 0) {
                 dx = -1; dy = 0;
             }
             if ((key === 'ArrowUp' || key === 'z' || key === 'Z') && dy === 0) {
@@ -118,7 +129,6 @@
                 dx = 0; dy = 1;
             }
             if (key === ' ') {
-                e.preventDefault();
                 togglePause();
             }
         }

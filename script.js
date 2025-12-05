@@ -472,3 +472,8 @@ if ('performance' in window) {
         }, 0);
     });
 }
+
+
+if (['ArrowLeft', 'ArrowUp', 'ArrowRight', 'ArrowDown', ' '].includes(key)) {
+    e.preventDefault();
+}
