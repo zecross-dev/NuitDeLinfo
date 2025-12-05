@@ -9,12 +9,14 @@
     <body>
 
     <div class="calculator" id="calculator" aria-label="Calculatrice draggable">
-        <div class="calc-header" id="dragHandle" aria-grabbed="false">
-            <div class="window-dots">
-                <div class="dot"></div><div class="dot"></div><div class="dot"></div>
-            </div>
-            Calculatrice
+    <div class="calc-header" id="dragHandle" aria-grabbed="false">
+        <div class="window-dots">
+            <div class="dot"></div><div class="dot"></div><div class="dot"></div>
         </div>
+        Calculatrice
+        
+        <button id="closeCalcBtn" class="close-btn" onmousedown="event.stopPropagation()">x</button>
+    </div>
 
         <div class="display" aria-live="polite">
             <div class="history" id="history"></div>

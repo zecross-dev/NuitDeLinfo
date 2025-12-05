@@ -18,11 +18,12 @@ html, body {
     user-select: none;
 }
 
-/* Conteneur principal (draggable) */
+
 .calculator {
-    position: fixed;
-    top: 12vh;
-    left: 12vw;
+    position: absolute; 
+    z-index: 100;       
+    top: 20px;          
+    left: 20px;
     width: 320px;
     background: var(--panel);
     border: 2px solid var(--violet);
@@ -30,6 +31,28 @@ html, body {
     box-shadow: 0 20px 40px var(--shadow), 0 0 0 8px rgba(124,58,237,0.15) inset;
     overflow: hidden;
     transform: translateZ(0);
+}
+
+.close-btn {
+    margin-left: auto;
+    background: #ff5f56;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    font-size: 14px;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s;
+}
+
+.close-btn:hover {
+    background: #ff3b30;
+    transform: scale(1.1);
 }
 
 /* Barre d'en-tête servant de poignée */
