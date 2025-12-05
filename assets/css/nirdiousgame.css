@@ -49,7 +49,7 @@ body > .row {
 .mainGame {
     flex-grow: 1;              /* Prend tout l'espace restant */
     width: 100%;
-    background-color: #3498db; /* Bleu clair */
+    background-image: url(../image/windowBackGround.png); /* Bleu clair */
     position: relative;
 }
 

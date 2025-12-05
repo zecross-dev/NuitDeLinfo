@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Snake Game - Nirdious</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="script" href="script.js">
+</head>
+<body>
+    
+    <div class="game-container">
+        <nav class="navbar">
+        <div class="container">
+            <div class="logo"><img src="assets/logo nirdious.png" alt="logo nirdious" width="250px"></div>
+            <ul class="nav-links">
+                <li><a href="snake.html">Snake</a></li>
+                <li><a href="#services">Femmes dans le numérique</a></li>
+                <li><a href="#apropos">Nous Contacter</a></li>
+                <li><a href="#contact">FAQ et Support</a></li>
+                <li><a href="qcm.html">Nirdious Game</a></li>
+            </ul>
+            <button class="menu-toggle" id="menuToggle">
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+        <h1>🐍 Snake Game</h1>
+        
+        <div class="score-board">
+            <div class="score-item">
+                <div class="score-label">Score</div>
+                <div class="score-value" id="score">0</div>
+            </div>
+            <div class="score-item">
+                <div class="score-label">Record</div>
+                <div class="score-value" id="highScore">0</div>
+            </div>
+        </div>
+
+        <canvas id="gameCanvas" width="400" height="400"></canvas>
+
+        <div class="controls">
+            <button id="startBtn">Démarrer</button>
+            <button id="pauseBtn" style="display:none;">Pause</button>
+        </div>
+
+        <div class="difficulty-buttons">
+            <button class="difficulty-btn" data-speed="150">Facile</button>
+            <button class="difficulty-btn active" data-speed="100">Normal</button>
+            <button class="difficulty-btn" data-speed="70">Difficile</button>
+        </div>
+
+        <div class="instructions">
+            <strong>🎮 Contrôles:</strong> Utilisez les flèches ← ↑ → ↓ ou WASD pour diriger le serpent
+        </div>
+    </div>
+
+    <div class="game-over" id="gameOver">
+        <h2>Game Over!</h2>
+        <p>Score final: <strong id="finalScore">0</strong></p>
+        <button onclick="restartGame()">Rejouer</button>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('gameCanvas');
+        const ctx = canvas.getContext('2d');
+        const scoreEl = document.getElementById('score');
+        const highScoreEl = document.getElementById('highScore');
+        const gameOverEl = document.getElementById('gameOver');
+        const finalScoreEl = document.getElementById('finalScore');
+        const startBtn = document.getElementById('startBtn');
+        const pauseBtn = document.getElementById('pauseBtn');
+
+        const gridSize = 20;
+        const tileCount = canvas.width / gridSize;
+
+        let snake = [{x: 10, y: 10}];
+        let food = {x: 15, y: 15};
+        let dx = 0;
+        let dy = 0;
+        let score = 0;
+        let highScore = 0;
+        let gameLoop;
+        let gameSpeed = 100;
+        let isPlaying = false;
+        let isPaused = false;
+
+        // Charger le high score depuis la mémoire
+        const savedHighScore = localStorage.getItem('snakeHighScore');
+        if (savedHighScore) {
+            highScore = parseInt(savedHighScore);
+            highScoreEl.textContent = highScore;
+        }
+
+        // Difficulté
+        document.querySelectorAll('.difficulty-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                if (!isPlaying) {
+                    document.querySelectorAll('.difficulty-btn').forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    gameSpeed = parseInt(btn.dataset.speed);
+                }
+            });
+        });
+
+        // Contrôles - EMPÊCHE LE SCROLL DE LA PAGE
+        document.addEventListener('keydown', changeDirection);
+
+        function changeDirection(e) {
+            const key = e.key;
+            
+            // Empêcher le scroll de la page avec les flèches
+            if (['ArrowLeft', 'ArrowUp', 'ArrowRight', 'ArrowDown', ' '].includes(key)) {
+                e.preventDefault();
+            }
+            
+            if ((key === 'ArrowLeft' || key === 'q' || key === 'Q') && dx === 0) {
+                dx = -1; dy = 0;
+            }
+            if ((key === 'ArrowUp' || key === 'z' || key === 'Z') && dy === 0) {
+                dx = 0; dy = -1;
+            }
+            if ((key === 'ArrowRight' || key === 'd' || key === 'D') && dx === 0) {
+                dx = 1; dy = 0;
+            }
+            if ((key === 'ArrowDown' || key === 's' || key === 'S') && dy === 0) {
+                dx = 0; dy = 1;
+            }
+            if (key === ' ') {
+                togglePause();
+            }
+        }
+
+        function startGame() {
+            if (isPlaying && !isPaused) return;
+            
+            if (!isPlaying) {
+                snake = [{x: 10, y: 10}];
+                dx = 1;
+                dy = 0;
+                score = 0;
+                scoreEl.textContent = score;
+                generateFood();
+            }
+            
+            isPlaying = true;
+            isPaused = false;
+            startBtn.style.display = 'none';
+            pauseBtn.style.display = 'inline-block';
+            pauseBtn.textContent = 'Pause';
+            gameOverEl.classList.remove('show');
+            
+            clearInterval(gameLoop);
+            gameLoop = setInterval(update, gameSpeed);
+        }
+
+        function togglePause() {
+            if (!isPlaying) return;
+            
+            isPaused = !isPaused;
+            
+            if (isPaused) {
+                clearInterval(gameLoop);
+                pauseBtn.textContent = 'Reprendre';
+            } else {
+                gameLoop = setInterval(update, gameSpeed);
+                pauseBtn.textContent = 'Pause';
+            }
+        }
+
+        function update() {
+            moveSnake();
+            
+            if (checkCollision()) {
+                endGame();
+                return;
+            }
+            
+            if (snake[0].x === food.x && snake[0].y === food.y) {
+                score += 1;
+                scoreEl.textContent = score;
+                
+                if (score > highScore) {
+                    highScore = score;
+                    highScoreEl.textContent = highScore;
+                    localStorage.setItem('snakeHighScore', highScore);
+                }
+                
+                generateFood();
+            } else {
+                snake.pop();
+            }
+            
+            draw();
+        }
+
+        function moveSnake() {
+            const head = {x: snake[0].x + dx, y: snake[0].y + dy};
+            snake.unshift(head);
+        }
+
+        function checkCollision() {
+            const head = snake[0];
+            
+            if (head.x < 0 || head.x >= tileCount || head.y < 0 || head.y >= tileCount) {
+                return true;
+            }
+            
+            for (let i = 1; i < snake.length; i++) {
+                if (head.x === snake[i].x && head.y === snake[i].y) {
+                    return true;
+                }
+            }
+            
+            return false;
+        }
+
+        function generateFood() {
+            food = {
+                x: Math.floor(Math.random() * tileCount),
+                y: Math.floor(Math.random() * tileCount)
+            };
+            
+            for (let segment of snake) {
+                if (food.x === segment.x && food.y === segment.y) {
+                    generateFood();
+                    return;
+                }
+            }
+        }
+
+        function draw() {
+            ctx.fillStyle = '#1a1a1a';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            // Grille
+            ctx.strokeStyle = '#2a2a2a';
+            ctx.lineWidth = 0.5;
+            for (let i = 0; i < tileCount; i++) {
+                ctx.beginPath();
+                ctx.moveTo(i * gridSize, 0);
+                ctx.lineTo(i * gridSize, canvas.height);
+                ctx.stroke();
+                ctx.beginPath();
+                ctx.moveTo(0, i * gridSize);
+                ctx.lineTo(canvas.width, i * gridSize);
+                ctx.stroke();
+            }
+            
+            // Nourriture
+            const gradient = ctx.createRadialGradient(
+                food.x * gridSize + gridSize/2, 
+                food.y * gridSize + gridSize/2, 
+                0,
+                food.x * gridSize + gridSize/2, 
+                food.y * gridSize + gridSize/2, 
+                gridSize/2
+            );
+            gradient.addColorStop(0, '#ff6b6b');
+            gradient.addColorStop(1, '#ee5a6f');
+            ctx.fillStyle = gradient;
+            ctx.beginPath();
+            ctx.arc(
+                food.x * gridSize + gridSize/2, 
+                food.y * gridSize + gridSize/2, 
+                gridSize/2 - 2, 
+                0, 
+                Math.PI * 2
+            );
+            ctx.fill();
+            
+            // Serpent
+            snake.forEach((segment, index) => {
+                const segmentGradient = ctx.createLinearGradient(
+                    segment.x * gridSize, 
+                    segment.y * gridSize,
+                    segment.x * gridSize + gridSize, 
+                    segment.y * gridSize + gridSize
+                );
+                
+                if (index === 0) {
+                    segmentGradient.addColorStop(0, '#667eea');
+                    segmentGradient.addColorStop(1, '#764ba2');
+                } else {
+                    segmentGradient.addColorStop(0, '#7c3aed');
+                    segmentGradient.addColorStop(1, '#8b5cf6');
+                }
+                
+                ctx.fillStyle = segmentGradient;
+                ctx.fillRect(
+                    segment.x * gridSize + 1, 
+                    segment.y * gridSize + 1, 
+                    gridSize - 2, 
+                    gridSize - 2
+                );
+                
+                // Yeux pour la tête
+                if (index === 0) {
+                    ctx.fillStyle = 'white';
+                    const eyeSize = 3;
+                    const eyeOffsetX = dx !== 0 ? (dx > 0 ? 12 : 4) : 8;
+                    const eyeOffsetY = dy !== 0 ? (dy > 0 ? 12 : 4) : 6;
+                    
+                    if (dx !== 0) {
+                        ctx.fillRect(segment.x * gridSize + eyeOffsetX, segment.y * gridSize + 5, eyeSize, eyeSize);
+                        ctx.fillRect(segment.x * gridSize + eyeOffsetX, segment.y * gridSize + 12, eyeSize, eyeSize);
+                    } else {
+                        ctx.fillRect(segment.x * gridSize + 5, segment.y * gridSize + eyeOffsetY, eyeSize, eyeSize);
+                        ctx.fillRect(segment.x * gridSize + 12, segment.y * gridSize + eyeOffsetY, eyeSize, eyeSize);
+                    }
+                }
+            });
+        }
+
+        function endGame() {
+            clearInterval(gameLoop);
+            isPlaying = false;
+            finalScoreEl.textContent = score;
+            gameOverEl.classList.add('show');
+            startBtn.style.display = 'inline-block';
+            pauseBtn.style.display = 'none';
+        }
+
+        function restartGame() {
+            gameOverEl.classList.remove('show');
+            startGame();
+        }
+
+        startBtn.addEventListener('click', startGame);
+        pauseBtn.addEventListener('click', togglePause);
+
+        // Dessiner l'état initial
+        draw();
+    </script>
+</body>
+</html>

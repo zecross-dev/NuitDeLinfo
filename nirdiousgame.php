@@ -20,17 +20,17 @@ $titre = "Nirdious Game";
         <div class="row">
             <div class="game">
                 <div class="gameHead">
-
                 </div>
                 <div class="mainGame">
+
                     <div class="apps">
-
+                        <button class="logoAppBtn">
+                            <img src="assets/image/logoCalculatrice.png" width="50px">
+                        </button>
                     </div>
+
                     <div class="window">
-
-                    </div>
-                    <div class="window2">
-
+                        <?php require_once(__DIR__ . '/calculatrice.php'); ?>
                     </div>
                 </div>
                 <div class="footGame">
@@ -56,5 +56,14 @@ $titre = "Nirdious Game";
                 </div>
             </div>
         </div>
-        <?php require_once (__DIR__ . '/footer.php'); ?>
+        <a href="/qcm.php">Accédez aux qcm</a>
+        <footer class="footer">
+            <div class="footer-base">
+                <a href="nous contacter">Nous contacter</a>
+                <a href="/snake.php">SSSSSSSSSS</a> 
+                <div class="instagram">
+                    <img src="Instagram_logo_2022.svg.png">
+                </div>
+            </div>
+        </footer>
     </body>

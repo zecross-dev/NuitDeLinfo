@@ -10,7 +10,7 @@
     <body>
         <footer class="footer">
             <div class="footer-base">
-                <a href="nous contacter">Nous contacter</a>
+                <a href="/contact.php">Nous contacter</a>
                 <div class="instagram">
                     <img src="Instagram_logo_2022.svg.png">
                 </div>

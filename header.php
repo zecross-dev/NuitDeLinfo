@@ -10,14 +10,14 @@
     </head>
     <body>
     <header class="header">
-        <img class="logo-header" src="logo-nirdious.png">
+        <img class="logo-header" src="assets/image/logo-nirdious.png">
         <h1 class="title"><?php echo($titre);?></h1>
         <div class="menu-burger">
             <ul>
-                <li><a class="" href="Nirdious Game">Nirdious Game</a></li>
-                <li><a href="Les femmes dans le numérique">La place des femmes dans le numérique</a></li>
-                <li><a href="nous contacter">Nous contacter</a></li>
-                <li><a href="faq & support">FAQ & Support</a></li>
+                <li><a class="" href="/nirdiousGame.php">Nirdious Game</a></li>
+                <li><a href="/femme-et-informatique.php">La place des femmes dans le numérique</a></li>
+                <li><a href="contact.php">Nous contacter</a></li>
+                <li><a href="faq.php">FAQ & Support</a></li>
             </ul>
         </div>
     </header>
