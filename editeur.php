@@ -1,20 +1,18 @@
 <!DOCTYPE html>
 <html lang="fr">
-    <head>
-        <meta charset="UTF-8">
-        <title>Éditeur draggable</title>
-        <link rel="stylesheet" href="assets/css/editeur.css">
-    </head>
-    <body>
-    <div id="container">
-        <div id="editor">
-            <div id="editor-header">
-                <span>Éditeur de texte</span>
-                <span class="close">&times;</span>
-            </div>
-            <textarea placeholder="Écrivez ici..."></textarea>
-        </div>
+<head>
+    <meta charset="UTF-8">
+    <title>Éditeur draggable</title>
+    <link rel="stylesheet" href="assets/css/editeur.css">
+</head>
+<body>
+
+<div class="editor" id="editor">
+    <div class="editor-header" id="editorHeader">
+        <button class="editor-close" id="editorClose">✖</button>
     </div>
-    <script src="assets/scripts/editeur.js"></script>
-    </body>
+    <textarea placeholder="Écrivez votre texte ici..."></textarea>
+</div>
+<script src="assets/scripts/editeur.js"></script>
+</body>
 </html>
