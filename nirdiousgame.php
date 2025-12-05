@@ -20,17 +20,17 @@ $titre = "Nirdious Game";
         <div class="row">
             <div class="game">
                 <div class="gameHead">
-
                 </div>
                 <div class="mainGame">
-                    <div class="apps">
 
+                    <div class="apps">
+                        <button class="logoAppBtn">
+                            <img src="assets/image/logoCalculatrice.png" width="50px">
+                        </button>
                     </div>
+
                     <div class="window">
-                        <?php require_once (__DIR__ . '/calculatrice.php'); ?>
-                    </div>
-                    <div class="window">
-                        <?php require_once (__DIR__ . '/editeur.php'); ?>
+                        <?php require_once(__DIR__ . '/calculatrice.php'); ?>
                     </div>
                 </div>
                 <div class="footGame">

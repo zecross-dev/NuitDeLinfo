@@ -262,3 +262,6 @@ if (calcWindow && handle) {
     window.addEventListener('touchend', onDragEnd);
     window.addEventListener('touchcancel', onDragEnd);
 }
+document.querySelector(".logoAppBtn").addEventListener("click", () => {
+    document.querySelector(".window").style.display = "block";
+});

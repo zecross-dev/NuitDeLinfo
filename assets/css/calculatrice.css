@@ -31,7 +31,9 @@ html, body {
     box-shadow: 0 20px 40px var(--shadow), 0 0 0 8px rgba(124,58,237,0.15) inset;
     overflow: hidden;
     transform: translateZ(0);
+    display: none;
 }
+
 
 .close-btn {
     margin-left: auto;
@@ -151,7 +153,21 @@ button.key:focus-visible {
     outline-offset: 2px;
 }
 
+apps {
+    display: flex;
+}
+
+.logoApp {
+    align-self: end;
+    justify-self: left;
+}
+
+
+
+
 /* Petits écrans */
 @media (max-width: 360px) {
     .calculator { width: 92vw; left: 4vw; }
+
+
 }
