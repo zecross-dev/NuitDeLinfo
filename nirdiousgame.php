@@ -9,11 +9,14 @@ $titre = "Nirdious Game";
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Document</title>
+        <link rel="stylesheet" href="assets/css/nirdiousgame.css">
     </head>
     
     <body>
+        <div>
         <?php require_once (__DIR__ . '/header.php'); ?>
-        <h2 class="titleGame">NIRDIOUS GAME</h2>
+        </div>
+        <h2>NIRDIOUS GAME</h2>
         <div class="row">
             <div class="game">
                 <div class="gameHead">
@@ -24,7 +27,7 @@ $titre = "Nirdious Game";
 
                     </div>
                     <div class="window">
-                        
+
                     </div>
                     <div class="window2">
 
@@ -35,10 +38,22 @@ $titre = "Nirdious Game";
                 </div>
             </div>
             <div class="levels">
-                <div class="row"></div>
-                <div class="row"></div>
-                <div class="row"></div>
-                <div class="row"></div>
+                <div class="row">
+                    <div class="level"></div>
+                    <div class="level"></div>
+                </div>
+                <div class="row">
+                    <div class="level"></div>
+                    <div class="level"></div>
+                </div>
+                <div class="row">
+                    <div class="level"></div>
+                    <div class="level"></div>
+                </div>
+                <div class="row">
+                    <div class="level"></div>
+                    <div class="level"></div>
+                </div>
             </div>
         </div>
         <?php require_once (__DIR__ . '/footer.php'); ?>

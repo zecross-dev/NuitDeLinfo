@@ -1,0 +1,90 @@
+/* style.css */
+
+/* Reset de base */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    min-height: 100vh; /* "Au moins" la hauteur de l'écran, mais peut s'agrandir */
+    font-family: sans-serif;
+    background-color: #f0f0f0;
+    overflow-y: auto; /* IMPORTANT : Autorise le défilement vertical */
+}
+
+body > .row {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    
+    min-height: 100vh; /* Le conteneur s'adapte aussi */
+    height: auto;      /* Laisse la hauteur libre */
+    gap: 20px;
+    
+    padding: 50px 0;   /* Ajoute une marge en haut et en bas pour ne pas coller aux bords quand on scroll */
+}
+
+/* --- La Fenêtre (Window) --- */
+.game {
+    width: 66vw;  /* ~2/3 largeur écran */
+    height: 66vh; /* ~2/3 hauteur écran */
+    
+    display: flex;
+    flex-direction: column; /* Empile Head, Main, Foot */
+    
+    background-color: #ffffff;
+    border: 2px solid #333;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+}
+
+.gameHead {
+    height: 30px;              /* Barre du haut fixe */
+    width: 100%;
+    background-color: #2c3e50; /* Bleu foncé */
+}
+
+.mainGame {
+    flex-grow: 1;              /* Prend tout l'espace restant */
+    width: 100%;
+    background-color: #3498db; /* Bleu clair */
+    position: relative;
+}
+
+.footGame {
+    height: 50px;              /* Barre du bas fixe */
+    width: 100%;
+    background-color: #e67e22; /* Orange */
+}
+
+/* --- La Colonne des Niveaux (Levels) --- */
+.levels {
+    height: 66vh; /* Même hauteur que .game */
+    width: 150px;
+    
+    display: flex;
+    flex-direction: column;         /* Colonne verticale */
+    justify-content: space-between; /* Espace équitablement les blocs */
+    
+    background-color: #9b59b6;      /* Violet */
+    padding: 10px;
+    border-radius: 5px;
+}
+
+/* Cible les rows spécifiquement DANS levels pour ne pas casser le layout principal */
+.levels .row {
+    width: 100%;
+    height: 20%;               /* 4 blocs prennent de la place mais laissent des espaces */
+    background-color: #2ecc71; /* Vert */
+    border: 2px solid white;
+}
+
+/* Titre flottant (optionnel) */
+.titleGame {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    z-index: 10;
+}
